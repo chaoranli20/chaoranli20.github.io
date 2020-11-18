@@ -18,28 +18,34 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta property="og:type" content="website">
-<meta property="og:title">
-<meta property="og:url" content="http://example.com/index.html">
+  <meta name="description" content="C&#x2F;C++快速入门前言 #include &lt;stdio.h&gt;是标准输入输出库，有输入输出就需要加这一行。 &lt;string.h&gt;负责字符串有关函数 c语言中的.h和c++中更推荐的写法#include &lt;cstdio&gt;以及#include &lt;cstring&gt;等等价 %d是int型的输入输出标识，%f是float的输入输出格式，%c是char型的输入输出">
+<meta property="og:type" content="article">
+<meta property="og:title" content="c++语法与算法-第二章">
+<meta property="og:url" content="http://example.com/2020/11/18/c++%E8%AF%AD%E6%B3%95%E4%B8%8E%E7%AE%97%E6%B3%95-2/index.html">
 <meta property="og:site_name">
+<meta property="og:description" content="C&#x2F;C++快速入门前言 #include &lt;stdio.h&gt;是标准输入输出库，有输入输出就需要加这一行。 &lt;string.h&gt;负责字符串有关函数 c语言中的.h和c++中更推荐的写法#include &lt;cstdio&gt;以及#include &lt;cstring&gt;等等价 %d是int型的输入输出标识，%f是float的输入输出格式，%c是char型的输入输出">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-11-18T10:34:13.000Z">
+<meta property="article:modified_time" content="2020-11-18T10:55:11.595Z">
 <meta property="article:author" content="John Doe">
+<meta property="article:tag" content="c++">
+<meta property="article:tag" content="算法">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://example.com/">
+<link rel="canonical" href="http://example.com/2020/11/18/c++%E8%AF%AD%E6%B3%95%E4%B8%8E%E7%AE%97%E6%B3%95-2/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome : true,
-    isPost : false,
+    isHome : false,
+    isPost : true,
     lang   : 'en'
   };
 </script>
 
-  <title></title>
+  <title>c++语法与算法-第二章 | </title>
   
 
 
@@ -137,9 +143,10 @@
         <div class="content-wrap">
           
 
-          <div class="content index posts-expand">
+          <div class="content post posts-expand">
             
-      
+
+    
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
@@ -155,10 +162,9 @@
       <meta itemprop="name" content="">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/11/18/c++%E8%AF%AD%E6%B3%95%E4%B8%8E%E7%AE%97%E6%B3%95-2/" class="post-title-link" itemprop="url">c++语法与算法-第二章</a>
-        </h2>
+        <h1 class="post-title" itemprop="name headline">
+          c++语法与算法-第二章
+        </h1>
 
         <div class="post-meta">
             <span class="post-meta-item">
@@ -191,7 +197,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="C-C-快速入门"><a href="#C-C-快速入门" class="headerlink" title="C/C++快速入门"></a>C/C++快速入门</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><ul>
+        <h1 id="C-C-快速入门"><a href="#C-C-快速入门" class="headerlink" title="C/C++快速入门"></a>C/C++快速入门</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><ul>
 <li>#include &lt;stdio.h&gt;是标准输入输出库，有输入输出就需要加这一行。</li>
 <li>&lt;string.h&gt;负责字符串有关函数</li>
 <li>c语言中的.h和c++中更推荐的写法#include &lt;cstdio&gt;以及#include &lt;cstring&gt;等等价</li>
@@ -443,260 +449,34 @@
 <li>数组不允许作为返回类型出现，如果想返回数组，只能把想要返回的数组作为参数传入函数</li>
 </ul>
 
-      
     </div>
 
     
     
     
+
       <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
+          <div class="post-tags">
+              <a href="/tags/c/" rel="tag"># c++</a>
+              <a href="/tags/%E7%AE%97%E6%B3%95/" rel="tag"># 算法</a>
+          </div>
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2020/11/18/%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E9%87%8F%E5%8C%96%E7%A0%94%E7%A9%B6%E6%96%B9%E6%B3%95%E9%99%84%E5%BD%95C-7/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/11/18/%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E9%87%8F%E5%8C%96%E7%A0%94%E7%A9%B6%E6%96%B9%E6%B3%95%E9%99%84%E5%BD%95C-7/" class="post-title-link" itemprop="url">计算机体系结构量化研究方法附录C.7</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2020-11-18 18:34:13 / Modified: 18:47:22" itemprop="dateCreated datePublished" datetime="2020-11-18T18:34:13+08:00">2020-11-18</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/" itemprop="url" rel="index"><span itemprop="name">计算机体系结构</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="计算机体系结构量化研究方法——附录C-7-交叉问题"><a href="#计算机体系结构量化研究方法——附录C-7-交叉问题" class="headerlink" title="计算机体系结构量化研究方法——附录C.7 交叉问题"></a>计算机体系结构量化研究方法——附录C.7 交叉问题</h1><h2 id="RISC指令集和流水线效率"><a href="#RISC指令集和流水线效率" class="headerlink" title="RISC指令集和流水线效率"></a>RISC指令集和流水线效率</h2><ul>
-<li>RISC中各个操作使用不同指令，被编译器或硬件动态分开调度，实施简单</li>
-</ul>
-<h2 id="动态规划流水线"><a href="#动态规划流水线" class="headerlink" title="动态规划流水线"></a>动态规划流水线</h2><ul>
-<li>首先用旁路技术解决</li>
-<li>旁路技术无法解决就由冒险检测硬件从使用冲突的结果的那条指令开始stall流水线，在冲突没有解决前没有新的指令提取或发射</li>
-<li>为了解决这种性能损失，编译器规划指令避免冒险，这种方式称为编译器或静态调度</li>
-<li>早期处理器使用了另外一种解决性能损失的方法，称为动态调度，由硬件安排指令执行顺序来减少stall</li>
-<li>本节介绍了动态调度的CDC6600使用的记分牌技术</li>
-<li>本附录中讨论的技术都基于指令循序发射，也就是指令如果在流水线中stall，它的后续指令不会被处理</li>
-<li>在MIPS流水线中，结构和数据冒险都在指令译码(ID)时被检测，也就是如果指令能够正确执行，它会被从ID发射出去</li>
-<li>MIPS流水线中，为了让指令在操作数准备好后立即执行(即使它前面的指令stall了)，需要满足的条件：<ul>
-<li>把ID分为两部分：<ul>
-<li>发射——解码，检查结构冒险</li>
-<li>读操作数——等待数据冒险消失，然后读操作数</li>
-</ul>
-</li>
-<li>顺序解码和发射指令，乱序(ooo)执行和完成</li>
-</ul>
-</li>
-</ul>
-<h2 id="采用记分牌的动态调度"><a href="#采用记分牌的动态调度" class="headerlink" title="采用记分牌的动态调度"></a>采用记分牌的动态调度</h2><ul>
-<li>记分牌技术允许在有可利用的资源且没有数据依赖时乱序执行指令，全面负责指令发射执行和冲突检测。</li>
-<li>WAR冒险在MIPS浮点数和整数流水线中不存在，但在ooo时可能出现</li>
-<li>记分牌的目标是通过尽早执行指令保持一个时钟周期一条指令的执行速率，所以指令stall时，和正在活跃的以及被stall的指令之间无冒险的指令可以被发射与执行</li>
-<li>我们假设处理器有多个功能单元<ul>
-<li>CDC6600有16个分开的功能单元，包括4个浮点数单元，5个寄存器单元(memory referances?)和7个整数操作单元</li>
-<li>由于其他功能单元的延迟很小，记分牌主要在浮点单元上发挥作用</li>
-<li>我们假设(这个假设比CDC6600简单)有两个乘法器，一个加法器，一个除法单元，一个用于所有的内存引用、分支、整数操作的整数单元</li>
-<li>下图为有记分牌的MIPS处理器，垂直控制线是控制指令执行(记分牌完成)，所有寄存器文件和功能单元之间的数据流动通过总线完成(水平线，在CDC6600中叫做干线)，每组功能单元有一组总线(两个输入一个输出)<br><img src="/Images/001_CA.png" alt="有记分牌的MIPS处理器"></li>
-</ul>
-</li>
-<li>每条指令都通过记分牌，构建数据相关记录，这一步有关指令发射，替代了MIPS中的ID。记分牌监视硬件的一举一动，决定指令什么时候可以读操作数并执行，还决定指令什么时候可以把结果写到目的寄存器</li>
-<li>关注浮点运算，不考虑访存，每条指令执行需要四个步骤，下面的这四步代替了标准MIPS流水线的ID，EX，WB<ul>
-<li>取指<ul>
-<li>如果一个指令的功能单元可用，并且没有其他有相同目的寄存器的活跃指令(防止WAW)，记分牌发射指令并更新数据结构，代替了MIPS流水线中ID的第一部分；</li>
-<li>如果WAW或结构冲突，那么指令发射stall，且在冲突解决之前没有指令会发射。发射级stall会导致取指和发射之间的缓冲区被填满，缓冲区填满后取指stall</li>
-</ul>
-</li>
-<li>读操作数<ul>
-<li>记分牌监视操作数是否可用，即是否有更早发射的指令要写它，可用时告诉功能单元读数并执行，这一步解决了RAW，或许导致ooo，代替了MIPS流水线ID的第二部分</li>
-</ul>
-</li>
-<li>执行<ul>
-<li>功能单元执行结束后告诉记分牌执行结束，代替了MIPS流水线的EX，在MIPS浮点流水线中耗用多个周期</li>
-</ul>
-</li>
-<li>写结果<ul>
-<li>记分牌检测WAR相关，代替了MIPS流水线的WB</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>记分牌未利用转发，只有当寄存器堆有一条指令的两个操作数时才会进行读取。这样做没有产生大的代价，因为和前面的简单流水线不同，这里在指令执行后立即把结果写到寄存器，而不是等待分配时隙再写入。但由于结果写入和操作数读取不能重叠，仍然会有一个周期的延迟，所以需要增加缓冲消除这一开销。</li>
-<li>通往寄存器文件只有有限的源操作数总线和结果总线，这会导致结构冲突。所以记分牌必须保证允许进入步骤2和4的功能单元数不超过可用总线数。CDC6600在解决这个问题时，把16个功能单元分为4组，为每一组提供一组总线，称为数据干线，在一个时钟内，每组只有一个单元能够读操作数或写结果。</li>
-<li>下面看有5个功能单元的MIPS记分牌的数据结构，记分牌中有三个状态：<ul>
-<li>指令状态</li>
-<li>功能单元(FU)状态，每个功能单元状态有9个字段：<ul>
-<li>Busy，功能单元是否忙碌</li>
-<li>Op，功能单元中的操作，如加或减</li>
-<li>Fi，目的寄存器</li>
-<li>Fj、Fk，源寄存器</li>
-<li>Qj、Qk，生成源寄存器的功能单元</li>
-<li>Rj、Rk，表示什么时候Fj、Fk准备好以及还没有读取的标志位，操作数被读取后设置为No</li>
-</ul>
-</li>
-<li>寄存器结果状态，当有活跃指令要写寄存器时，表示哪个功能单元会写哪个寄存器；当没有活跃指令要写这个寄存器时设置为blank</li>
-</ul>
-</li>
-<li>如果记分牌中哪一项没有用到，设置为空，下图为一个记分牌示例</li>
-<li><img src="/Images/002_CA.png" alt="记分牌示例"></li>
-<li>一些注意事项<ul>
-<li>发射指令前检查结构冲突，如果没有结构冲突就发射，数据冲突可以等</li>
-<li>写结果时前半个部分写寄存器，后半部分改记分牌的yesno，但不读数据</li>
-<li>指令状态写执行完的那个周期</li>
-<li>Load指令需要用Integer，sub和add需要用Add</li>
-</ul>
-</li>
-<li>寄存器引用规则：<ul>
-<li>Regs[D]表示要引用寄存器D的内容</li>
-<li>Fj[Fu] &lt;- S1表示要把寄存器S1的名称放入Fj[Fu]而非其内容</li>
-<li>指令发射条件：功能单元可用，要写和读的寄存器不是记分牌窗口内要写的寄存器（如果要写寄存器的那条指令已经发射了，那么这条指令也可以发射）</li>
-</ul>
-</li>
-<li>CDC6600上的记分牌拥有的逻辑数和一个功能单元相当，主要的开销是总线数量是CPU顺序执行指令或每个周期仅启动一条指令时的4倍。最近的动态规划的研究兴趣是如何在每个时钟周期发射更多指令以及构建在动态规划上的想法例如推测(4.7节)。</li>
-<li>记分卡受下列因素的影响：<ul>
-<li>指令可用并行数——这决定了是否能找到独立执行的指令</li>
-<li>可进入记分牌的指令数——这决定了流水线为了查找不相关指令可以向前看多远(窗口)，这里假设了无分支，第三章展示了有分支时窗口如何扩展</li>
-<li>功能单元的数量和种类——决定了结构冒险的重要性，可能会在使用动态规划时增加</li>
-<li>存在反相关和输出相关——导致WAR和WAW的stall</li>
-<li>第二个和第三个因素可以通过增加记分牌大小和功能单元数量解决，但会增加成本，或许也会影响周期时间。WAR和WAW在动态规划处理器中非常重要，因为流水线暴露了更多的名称相关，当我们在允许重叠执行一个循环的多个迭代的分支预测机制中使用动态规划时，WAW会变得更加重要。</li>
-</ul>
-</li>
-<li>书上的例子假设浮点功能单元EX的延迟为：加法2个时钟周期，乘法10个时钟周期，除法40个时钟周期</li>
-<li>下图为指令执行的每步需要的检查。FU代表指令使用的功能单元；D是目的寄存器名称；S1和S2是源寄存器名称；要访问记分牌中名称为Fj功能单元为FU的项目，使用Fj[FU]；Result[D]是要写寄存器D的功能单元的名称，变量f被用于每个功能单元。</li>
-<li><img src="/Images/003_CA.png" alt="指令执行每步要进行的检查"></li>
-<li>下面是记分牌算法（参照上图）<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">while(1):</span><br><span class="line">    for(instructions): &#x2F;&#x2F; 记分牌窗口中所有指令</span><br><span class="line">        &#x2F;&#x2F; 功能单元不忙 &amp;&amp; 与记分牌窗口内未发射指令无写后读&#x2F;写后写冲突</span><br><span class="line">        if(Not busy [FU] and not result [D]): </span><br><span class="line">            issue;</span><br><span class="line">            &#x2F;*</span><br><span class="line">            更改相应功能单元标志位为忙; 添加操作码、目的寄存器、源寄存器*2、生成操作数的功能单元*2、</span><br><span class="line">            操作数是否准备好*2(操作数还未写入置no, 写入但还未被读出置yes, 读出后执行的一拍置no), </span><br><span class="line">            无以上情况置空; result中对应寄存器下记录产生其数据的功能单元;</span><br><span class="line">            *&#x2F;</span><br><span class="line">            Busy[FU]←yes; Op[FU]←op; Fi[FU]←D;</span><br><span class="line">            Fj[FU]←S1; Fk[FU]←S2;</span><br><span class="line">            Qj←Result[S1]; Qk← Result[S2];</span><br><span class="line">            Rj← not Qj; Rk← not Qk; Result[D]←FU;</span><br><span class="line"></span><br><span class="line">        if(Rj &#x3D;&#x3D; yes &amp;&amp; Rk &#x3D;&#x3D; yes) &#x2F;&#x2F; 如果源操作数全部准备好</span><br><span class="line">            read operands;</span><br><span class="line">            Rj &lt;- no; Rk &lt;- no; Qj &lt;- null; Qk &lt;- null;</span><br><span class="line">        </span><br><span class="line">        if( Functional unit done):</span><br><span class="line">            execution complete;</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F; 记分牌窗口内正在活跃的指令不需要读要写的目的寄存器，此处解决读后写冲突</span><br><span class="line">        if(∀f((Fj[f] ¦ Fi[FU] or Rj[f] &#x3D; No) &amp;(Fk[f] ¦ Fi[FU] or Rk[f] &#x3D; No))) </span><br><span class="line">            write result;</span><br><span class="line">            &#x2F;&#x2F; 如果有用到这个结果的指令，把它们的R置yes</span><br><span class="line">            ∀f(if Qj[f]&#x3D;FU then Rj[f]←Yes);</span><br><span class="line">            ∀f(if Qk[f]&#x3D;FU then Rk[f]←Yes); </span><br><span class="line">            Result[Fi[FU]]← 0; </span><br><span class="line">            Busy[FU]← No;</span><br><span class="line"></span><br><span class="line">    if(instrustion set &#x3D;&#x3D; []):</span><br><span class="line">        break;</span><br></pre></td></tr></table></figure>
+        
 
 
-
-
-
-</li>
-</ul>
-
-      
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/11/18/%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E9%87%8F%E5%8C%96%E7%A0%94%E7%A9%B6%E6%96%B9%E6%B3%95%E9%99%84%E5%BD%95C-7/" rel="prev" title="计算机体系结构量化研究方法附录C.7">
+      <i class="fa fa-chevron-left"></i> 计算机体系结构量化研究方法附录C.7
+    </a></div>
+      <div class="post-nav-item"></div>
     </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
       </footer>
+    
   </article>
   
   
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2020/11/14/hello-world-1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/11/14/hello-world-1/" class="post-title-link" itemprop="url">hello world</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2020-11-14 10:30:40 / Modified: 11:21:12" itemprop="dateCreated datePublished" datetime="2020-11-14T10:30:40+08:00">2020-11-14</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Create-Blog/" itemprop="url" rel="index"><span itemprop="name">Create_Blog</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>纸上得来终觉浅，绝知此事要躬行</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-
   
 
 
@@ -749,6 +529,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#C-C-%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8"><span class="nav-number">1.</span> <span class="nav-text">C&#x2F;C++快速入门</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.2.</span> <span class="nav-text">2.1 基本数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%98%E9%87%8F%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.2.1.</span> <span class="nav-text">变量类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%BA%E5%88%B6%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2"><span class="nav-number">1.2.2.</span> <span class="nav-text">强制类型转换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%A6%E5%8F%B7%E5%B8%B8%E9%87%8F%E5%92%8Cconst%E5%B8%B8%E9%87%8F"><span class="nav-number">1.2.3.</span> <span class="nav-text">符号常量和const常量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">1.2.4.</span> <span class="nav-text">运算符</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-%E9%A1%BA%E5%BA%8F%E7%BB%93%E6%9E%84"><span class="nav-number">1.3.</span> <span class="nav-text">2.2 顺序结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B5%8B%E5%80%BC%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="nav-number">1.3.1.</span> <span class="nav-text">赋值表达式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8scanf%E5%92%8Cprintf%E8%BE%93%E5%85%A5%E5%92%8C%E8%BE%93%E5%87%BA"><span class="nav-number">1.3.2.</span> <span class="nav-text">使用scanf和printf输入和输出</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8getchar%E5%92%8Cputchar%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E5%AD%97%E7%AC%A6"><span class="nav-number">1.3.3.</span> <span class="nav-text">使用getchar和putchar输入输出字符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B3%A8%E9%87%8A"><span class="nav-number">1.3.4.</span> <span class="nav-text">注释</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#typedef"><span class="nav-number">1.3.5.</span> <span class="nav-text">typedef</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8math%E5%87%BD%E6%95%B0"><span class="nav-number">1.3.6.</span> <span class="nav-text">常用math函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-%E9%80%89%E6%8B%A9%E7%BB%93%E6%9E%84"><span class="nav-number">1.4.</span> <span class="nav-text">2.3 选择结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#if%E8%AF%AD%E5%8F%A5"><span class="nav-number">1.4.1.</span> <span class="nav-text">if语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#switch%E8%AF%AD%E5%8F%A5"><span class="nav-number">1.4.2.</span> <span class="nav-text">switch语句</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-4-%E5%BE%AA%E7%8E%AF%E7%BB%93%E6%9E%84"><span class="nav-number">1.5.</span> <span class="nav-text">2.4 循环结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#while%E8%AF%AD%E5%8F%A5"><span class="nav-number">1.5.1.</span> <span class="nav-text">while语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#do-while%E8%AF%AD%E5%8F%A5"><span class="nav-number">1.5.2.</span> <span class="nav-text">do while语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#for%E8%AF%AD%E5%8F%A5"><span class="nav-number">1.5.3.</span> <span class="nav-text">for语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#break%E5%92%8Ccontinue%E8%AF%AD%E5%8F%A5"><span class="nav-number">1.5.4.</span> <span class="nav-text">break和continue语句</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-5-%E6%95%B0%E7%BB%84"><span class="nav-number">1.6.</span> <span class="nav-text">2.5 数组</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-5-1-%E4%B8%80%E7%BB%B4%E6%95%B0%E7%BB%84"><span class="nav-number">1.6.1.</span> <span class="nav-text">2.5.1 一维数组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-5-2-%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F"><span class="nav-number">1.6.2.</span> <span class="nav-text">2.5.2 冒泡排序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-5-3-%E4%BA%8C%E7%BB%B4%E6%95%B0%E7%BB%84"><span class="nav-number">1.6.3.</span> <span class="nav-text">2.5.3 二维数组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-5-4-memset%E2%80%94%E2%80%94%E5%AF%B9%E6%95%B0%E7%BB%84%E4%B8%AD%E6%AF%8F%E4%B8%AA%E5%85%83%E7%B4%A0%E8%B5%8B%E7%9B%B8%E5%90%8C%E7%9A%84%E5%80%BC"><span class="nav-number">1.6.4.</span> <span class="nav-text">2.5.4 memset——对数组中每个元素赋相同的值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-5-5-%E5%AD%97%E7%AC%A6%E6%95%B0%E7%BB%84"><span class="nav-number">1.6.5.</span> <span class="nav-text">2.5.5 字符数组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-5-6-string-h%E5%A4%B4%E6%96%87%E4%BB%B6"><span class="nav-number">1.6.6.</span> <span class="nav-text">2.5.6 string.h头文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-5-7-sscanf%E4%B8%8Espintf"><span class="nav-number">1.6.7.</span> <span class="nav-text">2.5.7 sscanf与spintf</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-6-%E5%87%BD%E6%95%B0"><span class="nav-number">1.7.</span> <span class="nav-text">2.6 函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-6-1-%E5%87%BD%E6%95%B0%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="nav-number">1.7.1.</span> <span class="nav-text">2.6.1 函数的定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-6-3-%E4%BB%A5%E6%95%B0%E7%BB%84%E4%BD%9C%E4%B8%BA%E5%87%BD%E6%95%B0%E5%8F%82%E6%95%B0"><span class="nav-number">1.7.2.</span> <span class="nav-text">2.6.3 以数组作为函数参数</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
