@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="目标检测_EfficientDet_Scalable_and_Efficient_Object_Detection摘要 论文提出了一种加权双向特征金字塔网络(BiFPN)，允许简单快速的多尺度特征混合 提出了一种能够同时为所有的backbone，特征网络，box&#x2F;class预测网络的分辨率、深度、高度统一尺度的复合尺度方法 基于这些并使用EfficientNet[36]作为backbone提出了一">
+<meta property="og:type" content="article">
+<meta property="og:title">
+<meta property="og:url" content="http://example.com/2020/11/25/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B001_EfficientDet_Scalable_and_Efficient_Object_Detection/index.html">
+<meta property="og:site_name">
+<meta property="og:description" content="目标检测_EfficientDet_Scalable_and_Efficient_Object_Detection摘要 论文提出了一种加权双向特征金字塔网络(BiFPN)，允许简单快速的多尺度特征混合 提出了一种能够同时为所有的backbone，特征网络，box&#x2F;class预测网络的分辨率、深度、高度统一尺度的复合尺度方法 基于这些并使用EfficientNet[36]作为backbone提出了一">
+<meta property="og:locale">
+<meta property="og:image" content="http://example.com/images/002_efficientdet.png">
+<meta property="og:image" content="http://example.com/images/003_efficientdet.png">
+<meta property="og:image" content="http://example.com/images/004_efficientdet.png">
+<meta property="og:image" content="http://example.com/images/005_efficientdet.png">
+<meta property="og:image" content="http://example.com/images/006_efficientdet.png">
+<meta property="article:published_time" content="2020-11-25T08:38:26.379Z">
+<meta property="article:modified_time" content="2020-11-25T08:41:24.584Z">
+<meta property="article:author" content="superran">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/002_efficientdet.png">
+
+<link rel="canonical" href="http://example.com/2020/11/25/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B001_EfficientDet_Scalable_and_Efficient_Object_Detection/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
+  };
+</script>
+
+  <title> | </title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title"></h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-本站首页">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>本站首页</a>
+
+  </li>
+        <li class="menu-item menu-item-关于我">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于我</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/11/25/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B001_EfficientDet_Scalable_and_Efficient_Object_Detection/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="superran">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-11-25 16:38:26 / 修改时间：16:41:24" itemprop="dateCreated datePublished" datetime="2020-11-25T16:38:26+08:00">2020-11-25</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="目标检测-EfficientDet-Scalable-and-Efficient-Object-Detection"><a href="#目标检测-EfficientDet-Scalable-and-Efficient-Object-Detection" class="headerlink" title="目标检测_EfficientDet_Scalable_and_Efficient_Object_Detection"></a>目标检测_EfficientDet_Scalable_and_Efficient_Object_Detection</h1><h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><ul>
+<li>论文提出了一种加权双向特征金字塔网络(BiFPN)，允许简单快速的多尺度特征混合</li>
+<li>提出了一种能够同时为所有的backbone，特征网络，box/class预测网络的分辨率、深度、高度统一尺度的复合尺度方法</li>
+<li>基于这些并使用EfficientNet[36]作为backbone提出了一族物体检测器，称作EfficientDet，单模型单尺度时在coco test-dev上达到了52.2AP，用了52M参数和325B浮点运算</li>
+</ul>
+<h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><ul>
+<li>存在的问题<ul>
+<li>达到state of the art需要的参数和浮点运算过多，难以部署</li>
+<li>现有追求高效的检测方法，比如one stage，anchor-free derectors，压缩现有模型等，高效但损失了精度，而且大多数有设备局限性</li>
+</ul>
+</li>
+<li>研究方法：系统性的研究各种检测器的设计选择，以one stage detector为基准，测试backbone，feature fusion，class/box network的各种设计选择</li>
+<li>发现的两个主要挑战：<ul>
+<li>高效的多尺度特征融合。<ul>
+<li>FPN在多尺度特征融合中应用广泛</li>
+<li>现有的特征融合方法只是把它们无差别加和，但由于这些特征分辨率不同，它们对输出特征的贡献率也不同</li>
+<li>论文提出了BiFPN解决这个问题，引入了可学习的权重来学习不同输入特征的重要程度，重复的进行自上而下和自下而上的特征融合</li>
+</ul>
+</li>
+<li>model scaling<ul>
+<li>现有的方法主要靠增大backbone或图像尺寸来提高检测精度，增大通道数量、重复特征网络也能提高精度，论文发现按比例加大特征网络和box/class网络也是必要的</li>
+<li>论文提出能够同时为所有的backbone，特征网络，box/class预测网络的分辨率、深度、高度统一尺度的复合尺度方法来解决这个问题</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>基于BiFPN和compound scaling并使用EfficientNet[36]作为backbone提出了一族物体检测器，称作EfficientDet</li>
+</ul>
+<h2 id="相关的工作"><a href="#相关的工作" class="headerlink" title="相关的工作"></a>相关的工作</h2><ul>
+<li>one stage检测器<ul>
+<li>现有的目标检测器根据是否有感兴趣区域提议步骤分为两类(有——two stage; 没有——one stage)</li>
+<li>论文主要follow one stage检测器</li>
+</ul>
+</li>
+<li>多尺度特征表示<ul>
+<li>是目标检测的老大难问题</li>
+<li>FPN(feature pyramid network)提出了自上而下的路径来融合多尺度特征，Following this idea有很多方法出现了</li>
+</ul>
+</li>
+</ul>
+<h2 id="BiFPN"><a href="#BiFPN" class="headerlink" title="BiFPN"></a>BiFPN</h2><ul>
+<li>BiFPN的main idea——双向跨尺度连接(bidirectional cross-scale connections)和加权特征混合(weighted feature fusion)</li>
+</ul>
+<h3 id="多尺度特征混合的难点"><a href="#多尺度特征混合的难点" class="headerlink" title="多尺度特征混合的难点"></a>多尺度特征混合的难点</h3><ul>
+<li>目标：输入一列多尺度特征$\vec{P}^{in} = (\vec{P}^{in}_{l_1}, \vec{P}^{in}_{l_2}, …)$，其中$\vec{P}^{in}_{l_i}$表示第${l_i}$级的特征，输出一列新特征$\vec{P}^{out} = f(\vec{P}^{in})$</li>
+<li>下图中${P}<em>{i}$表示一个分辨率是输入图像的1/$2^i$的特征级别，例如如果输入分辨率是640*640，那么${P}^{in}</em>{3}$表示的特征级3分辨率是80*80<br><img src="/images/002_efficientdet.png" alt="特征网络设计"></li>
+<li>下图为FPN自上而下的计算公式，其中Resize是一个为了分辨率匹配进行的上采样或下采样操作，Conv通常是卷积操作<br><img src="/images/003_efficientdet.png" alt="FPN自上而下的计算公式"></li>
+</ul>
+<h3 id="跨尺度连接"><a href="#跨尺度连接" class="headerlink" title="跨尺度连接"></a>跨尺度连接</h3><ul>
+<li>三个优化<ul>
+<li>移除了只有一个输入边的节点，因为它对特征融合的贡献小</li>
+<li>如果原始输入和输出节点在同一级，就增加一条从原始输入到输出节点的边</li>
+<li>把每个双向路径看做一个特征网络的层，重复相同的层多次来保证更多的高级特征混合</li>
+</ul>
+</li>
+</ul>
+<h3 id="加权特征混合"><a href="#加权特征混合" class="headerlink" title="加权特征混合"></a>加权特征混合</h3><ul>
+<li><p>为每个输入增加一个附加权重，使网络学到每个输入特征的重要性</p>
+</li>
+<li><p>考虑了三种权重</p>
+<ul>
+<li>对权重值没有限制的混合，$O = \sum_iw_i · I_i$，其中w是可学习的权值，它可以是标量(对每个特征)或向量(对每个通道)或多维张量(对每个像素)，但由于权值无限，有训练不稳定的风险</li>
+<li>基于softmax的混合，$O = \sum_i\frac{e^{w_i}}{\sum_je^{w_j}}$，这样权值都被归一化到0-1之间，但是这导致在GPU上运行时间显著增加</li>
+<li>快速归一化混合(fast normalized fusion)，$O = \sum_i\frac{w_i}{\epsilon+\sum_j{w_j}}$，w通过在每个$w_i$后增加Relu来保证，$\epsilon$=0.0001避免除0，论文使用了这种方法</li>
+</ul>
+</li>
+<li><p>BiFPN第六级混合特征计算的例子，参见图2(d)，其中$P^{td}_6$是第六级上自上而下路径上的特征，$P^{out}_6$是第6级自下而上路径上的输出特征<br><img src="/images/004_efficientdet.png" alt="BiFPN第六级混合特征计算的例子"></p>
+</li>
+<li><p>为了提高效率，使用了depthwise separable convolution来做特征融合，在每个卷积后用了batch normalization和activation</p>
+</li>
+</ul>
+<h2 id="efficientdet"><a href="#efficientdet" class="headerlink" title="efficientdet"></a>efficientdet</h2><h3 id="efficientdet架构"><a href="#efficientdet架构" class="headerlink" title="efficientdet架构"></a>efficientdet架构</h3><ul>
+<li>backbone网络：ImageNet预训练的EfficientNets</li>
+<li>特征网络：BiFPN，使用backbone的3-7级特征，重复做双向特征融合</li>
+<li>融合的特征被送去做预测，class和box的网络权重被所有级别特征共享<br><img src="/images/005_efficientdet.png" alt="efficientdet架构"></li>
+</ul>
+<h3 id="尺度混合-compound-scaling"><a href="#尺度混合-compound-scaling" class="headerlink" title="尺度混合(compound scaling)"></a>尺度混合(compound scaling)</h3><ul>
+<li>主要挑战是如何把一个baseline efficientdet模型增大尺度</li>
+<li>提出能够同时为所有的backbone，特征网络，box/class预测网络的分辨率、深度、高度统一尺度的复合尺度方法，使用一个简单的混合系数$\phi$</li>
+<li>不同于参考文献[36]，目标检测比图像分类模型有更大的维度，所以为所有维度做网格搜索令人望而却步，所以基于启发式方法调节尺度</li>
+<li><strong>backbone network</strong>，为了使用efficientnet-b0 to b6的imagenet预训练检测点，使用了和efficientnet-b0 to b6的相同的宽度和高度</li>
+<li><strong>BiFPN network</strong>，由于深度需要被四舍五入到小整数，所以线性的增加深度$D_{bifpn}$(层数)；指数增加宽度$W_{bifpn}$(通道数)(和[36]相同)，在{1.2, 1.25, …1.45}中通过实验选择1.35作为宽度变化因子，于是$$W_{bifpn} = 64·(1.35^{\phi}), D_{bifpn} = 3 + \phi$$</li>
+<li><strong>Box/class预测网络</strong>，宽度始终和BiFPN相同，线性增加深度，即$$W_{pred} = W_{bifpn}, D_{box} = D_{class} = 3 + \lfloor\phi/3\rfloor$$</li>
+<li><strong>输入图像分辨率</strong>，由于特征级别是3-7，所以输入分辨率必须能够被$2^7 = 128$除，所以使用下面的等式线性增加分辨率$$R_{input} = 512 + \phi·128$$</li>
+<li>使用不同的$\phi$值，我们有了如下表的efficient-d0 to d7。由于是启发式变化尺度，所以未必是最优的，但是下面的实验证明它是高效的<br><img src="/images/006_efficientdet.png" alt="efficient d0-d6的尺度配置"></li>
+</ul>
+<h2 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h2><ul>
+<li>修改网络做了语义分割实验</li>
+<li>为了更好地理解fast normalized fusion，可视化了三个特征混合点在使用softmax和fast normalized fusion时的权重，对两者进行了比较。</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/11/18/c++%E8%AF%AD%E6%B3%95%E4%B8%8E%E7%AE%97%E6%B3%95-2/" rel="prev" title="c++语法与算法-第二章">
+      <i class="fa fa-chevron-left"></i> c++语法与算法-第二章
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/11/25/%E5%9B%BE%E5%83%8F%E5%88%86%E5%89%B2001_PointRend_Image_Segmentation_As_Rendering/" rel="next" title="">
+       <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B-EfficientDet-Scalable-and-Efficient-Object-Detection"><span class="nav-number">1.</span> <span class="nav-text">目标检测_EfficientDet_Scalable_and_Efficient_Object_Detection</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%91%98%E8%A6%81"><span class="nav-number">1.1.</span> <span class="nav-text">摘要</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Introduction"><span class="nav-number">1.2.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%B8%E5%85%B3%E7%9A%84%E5%B7%A5%E4%BD%9C"><span class="nav-number">1.3.</span> <span class="nav-text">相关的工作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BiFPN"><span class="nav-number">1.4.</span> <span class="nav-text">BiFPN</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%9A%E5%B0%BA%E5%BA%A6%E7%89%B9%E5%BE%81%E6%B7%B7%E5%90%88%E7%9A%84%E9%9A%BE%E7%82%B9"><span class="nav-number">1.4.1.</span> <span class="nav-text">多尺度特征混合的难点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B7%A8%E5%B0%BA%E5%BA%A6%E8%BF%9E%E6%8E%A5"><span class="nav-number">1.4.2.</span> <span class="nav-text">跨尺度连接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A0%E6%9D%83%E7%89%B9%E5%BE%81%E6%B7%B7%E5%90%88"><span class="nav-number">1.4.3.</span> <span class="nav-text">加权特征混合</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#efficientdet"><span class="nav-number">1.5.</span> <span class="nav-text">efficientdet</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#efficientdet%E6%9E%B6%E6%9E%84"><span class="nav-number">1.5.1.</span> <span class="nav-text">efficientdet架构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%BA%E5%BA%A6%E6%B7%B7%E5%90%88-compound-scaling"><span class="nav-number">1.5.2.</span> <span class="nav-text">尺度混合(compound scaling)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E9%AA%8C"><span class="nav-number">1.6.</span> <span class="nav-text">实验</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">superran</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">4</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/chaoranli20" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;chaoranli20" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fab fa-angellist"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">superran</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
