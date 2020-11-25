@@ -166,10 +166,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2020-11-18 18:34:13 / 修改时间：18:55:11" itemprop="dateCreated datePublished" datetime="2020-11-18T18:34:13+08:00">2020-11-18</time>
+              <time title="创建时间：2020-11-18 18:34:13" itemprop="dateCreated datePublished" datetime="2020-11-18T18:34:13+08:00">2020-11-18</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-11-25 16:34:15" itemprop="dateModified" datetime="2020-11-25T16:34:15+08:00">2020-11-25</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -194,255 +200,15 @@
           <h1 id="C-C-快速入门"><a href="#C-C-快速入门" class="headerlink" title="C/C++快速入门"></a>C/C++快速入门</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><ul>
 <li>#include &lt;stdio.h&gt;是标准输入输出库，有输入输出就需要加这一行。</li>
 <li>&lt;string.h&gt;负责字符串有关函数</li>
-<li>c语言中的.h和c++中更推荐的写法#include &lt;cstdio&gt;以及#include &lt;cstring&gt;等等价</li>
-<li>%d是int型的输入输出标识，%f是float的输入输出格式，%c是char型的输入输出格式，%s是字符串常量的输入输出格式，”%.1f”指保留一位小数输出，%lld是long long的输入输出格式，%lf是double的输入格式，%f是都double的输出格式；</li>
-<li>%c能识别空格和换行并把它们输入，%s通过空格或换行来识别一个字符串的结束</li>
-</ul>
-<h2 id="2-1-基本数据类型"><a href="#2-1-基本数据类型" class="headerlink" title="2.1 基本数据类型"></a>2.1 基本数据类型</h2><h3 id="变量类型"><a href="#变量类型" class="headerlink" title="变量类型"></a>变量类型</h3><ul>
-<li>变量名第一个字符可以是字母或者下划线</li>
-<li>任何一个变量在使用或者是赋值之前必须要声明类型</li>
-<li>整型<ul>
-<li>int占32位，绝对值在10E09范围内的整数或32位二进制整数都可定义为int;</li>
-<li>long long占64位，绝对值10E18内或64位二进制整数，如果赋大于int取值范围的初值，初值后面要加LL；</li>
-<li>unsigned int和unsigned long long占用的位数相同，但把负数挪到正数上来了；</li>
-</ul>
-</li>
-<li>浮点型<ul>
-<li>单精度float，32位，其中1位符号位，8位指数位，23位尾数位，可存放-2E128——+2E128的浮点数，但其有效精度只有6-7位；</li>
-<li>双精度double，64位，其中1位符号位，11位指数位，52位尾数位，可存放-2E1024——+2E1024的浮点数，但其有效精度为15-16位；</li>
-<li>遇到浮点型的数据都应该用double来存储以保证精度；</li>
-</ul>
-</li>
-<li>字符型<ul>
-<li>定义方式：char c = ‘e’;</li>
-<li>C语言中字符常量使用ASCII码统一编码，范围为0-127，小写字母比大写字母的ASCII码大32；</li>
-<li>字符常量必须用<strong>单引号</strong>标注</li>
-<li>下面的写法是可以的，因为117是u的ASCII码；<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 输出结果为c</span><br><span class="line">char c &#x3D; 117;</span><br><span class="line">printf(&quot;%c&quot;, c);</span><br></pre></td></tr></table></figure></li>
-<li>转义字符：“\n”表示换行。“\0”表示空字符NULL，ASCII码为0，注意这不是空格；</li>
-<li>下面代码的输出为1下面空一行，再下面是2，然后电脑会响一声，因为ASCII码为7的字符是控制字符控制响铃；<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">printf(&quot;%d\n\n%d&quot;, 1, 2);</span><br><span class="line">printf(&quot;%c&quot;, 7);</span><br></pre></td></tr></table></figure></li>
-<li>C语言中没有基本数据类型可以存储字符串，只能用字符数组的方式，C++中有string类型；</li>
-<li>字符串常量用<strong>双引号</strong>标注</li>
-<li>字符串常量可以作为初值赋给字符数组，不能赋给字符变量；<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">char str1[25] &#x3D; &quot;wo ai de ren bu ai wo&quot;;</span><br><span class="line">char str2[25] &#x3D; &quot;so sad a story&quot;;</span><br><span class="line">printf(&quot;%s, %s&quot;, str1, str2);</span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-<li>布尔型<ul>
-<li>定义方式：bool flag1 = true, flag2 = -1;//计算机识别为flag1和flag2都为true；</li>
-<li>在c++中可以直接使用，但在c语言中必须添加&lt;stdbool.h&gt;才可以使用；</li>
-<li>取值只能是true或者false，计算机分别存储为1和0，使用%d输出时会输出1和0；</li>
-<li>可以使用true和false直接赋值或者使用整型常量赋值，但只有0才会被识别并自动转换为false；</li>
-</ul>
-</li>
-</ul>
-<h3 id="强制类型转换"><a href="#强制类型转换" class="headerlink" title="强制类型转换"></a>强制类型转换</h3><ul>
-<li>有时整型需要变为浮点型方便做除法，因为整数除以整数在计算机中视为整除，不会自动变为浮点数；如下面输出结果都为0.00，编译器出错；<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">printf(&quot;%f %f&quot;, 3&#x2F;2, 3);</span><br></pre></td></tr></table></figure></li>
-<li>格式为(新类型名)变量名；</li>
-<li>类型间变量赋值时如果没有写强制类型转换，编译器会自动转换。但如果计算过程中需要转化类型，就不能算完再赋值，例如下面两行输出分别为0和0.6；<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">printf(&quot;%d\n&quot;, (double)(a &#x2F; b));</span><br><span class="line">printf(&quot;%.1f&quot;, (double)a &#x2F; (double)b);</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<h3 id="符号常量和const常量"><a href="#符号常量和const常量" class="headerlink" title="符号常量和const常量"></a>符号常量和const常量</h3><ul>
-<li>符号常量即用标识符来替代常量，又称为宏定义或者宏替换，在程序执行前全部自动把标识符替换为常量；</li>
-<li>define和const都在头文件处定义，更推荐const的写法；</li>
-<li>两种写法都一旦确定就不能改变，如#define pi 3.14后不能再写pi = pi + 1；<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 符号常量格式为#define 标识符 常量</span><br><span class="line">#define pi 3.14</span><br><span class="line">&#x2F;&#x2F; const常量格式为const 数据类型 变量名&#x3D;变量；</span><br><span class="line">const double pi &#x3D; 3.14;</span><br></pre></td></tr></table></figure></li>
-<li>define不仅可以定义常量，也可以定义任意语句或片段，但要注意加括号，因为define是直接替换；<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#define ADD(a, b) ((a) + (b))</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<h3 id="运算符"><a href="#运算符" class="headerlink" title="运算符"></a>运算符</h3><ul>
-<li>算术运算符<ul>
-<li>+-*/(双整数时取商)%(双整数时取模，不能用于浮点数)++–</li>
-<li>除数如果是0会导致异常退出或得到错误输出“1.#INF00”</li>
-<li>取模优先级和除法相同</li>
-</ul>
-</li>
-<li>关系运算符<ul>
-<li>&lt; &gt; &lt;= &gt;= == !=</li>
-</ul>
-</li>
-<li>逻辑运算符<ul>
-<li>&amp;&amp; || !!分别为与或非</li>
-</ul>
-</li>
-<li>条件运算符<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; A如果为真，执行并返回B的结果，否则执行并返回C的结果</span><br><span class="line">A ? B : C;</span><br></pre></td></tr></table></figure></li>
-<li>位运算符<ul>
-<li>位运算符共六种，优先级没有算术运算符高；</li>
-<li>由于int上限为2E31-1，所以程序中表示无穷大的数INF可以设置为(1&lt;&lt;31)-1，不过更常用的是(1&lt;&lt;30)-1即2E30-1，因为它可以避免相加超过int；</li>
-</ul>
-</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th align="center">运算符</th>
-<th align="center">含义</th>
-<th align="center">语法</th>
-<th align="center">效果</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">&lt;&lt;</td>
-<td align="center">左移</td>
-<td align="center">a&lt;&lt;x</td>
-<td align="center">整数a按二进制左移x位</td>
-</tr>
-<tr>
-<td align="center">&gt;&gt;</td>
-<td align="center">右移</td>
-<td align="center"></td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center">&amp;</td>
-<td align="center">位与</td>
-<td align="center">a&amp;b</td>
-<td align="center">整数a和b按二进制对齐按位进行与运算</td>
-</tr>
-<tr>
-<td align="center">|</td>
-<td align="center">位或</td>
-<td align="center"></td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center">^</td>
-<td align="center">位异或</td>
-<td align="center"></td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center">~</td>
-<td align="center">位取反</td>
-<td align="center"></td>
-<td align="center"></td>
-</tr>
-</tbody></table>
-<pre><code>- 以下两个式子等价</code></pre>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">const int INF &#x3D; (1 &lt;&lt; 30) - 1;</span><br><span class="line">const int INF &#x3D; 0x3fffffff;</span><br></pre></td></tr></table></figure>
-
-<h2 id="2-2-顺序结构"><a href="#2-2-顺序结构" class="headerlink" title="2.2 顺序结构"></a>2.2 顺序结构</h2><h3 id="赋值表达式"><a href="#赋值表达式" class="headerlink" title="赋值表达式"></a>赋值表达式</h3><ul>
-<li>可以连等，但不能在同一行既声明变量又连等；</li>
-</ul>
-<h3 id="使用scanf和printf输入和输出"><a href="#使用scanf和printf输入和输出" class="headerlink" title="使用scanf和printf输入和输出"></a>使用scanf和printf输入和输出</h3><ul>
-<li>C语言中变量定义后会在内存中分配空间给这个变量，为了得到变量的地址需要在变量前加一个&amp;，但是char数组不需要，因为数组名称本身就代表了这个数组第一个元素的地址。</li>
-<li>除要求char格式的输入外，scanf要求其他格式的输入时以空格换行等作为一个输入结束的标志。</li>
-<li>字符数组使用%s读入时以空格和换行作为读入结束的标志<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; scanf的格式为scanf(&quot;格式控制&quot;, 变量地址)，表示用户输入一个指定格式的变量，把它存到变量n中；</span><br><span class="line">&#x2F;&#x2F; printf的格式为printf(&quot;格式控制&quot;, 变量名称)</span><br><span class="line">scanf(&quot;%d:%d:%d&quot;, &amp;hour, &amp;minute, &amp;second)</span><br><span class="line">printf(&quot;%%&quot;); &#x2F;&#x2F; 输出百分号</span><br><span class="line">printf(&quot;\\&quot;); &#x2F;&#x2F; 输出\</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 输入1 a bcd时，程序的输出为a &#x3D; %d, c &#x3D; , str &#x3D; a，因为%c可以读入空格与换行</span><br><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">int main()&#123;</span><br><span class="line">	int a;</span><br><span class="line">	char c, str[10];</span><br><span class="line">	scanf(&quot;%d%c%s&quot;, &amp;a, &amp;c, str);</span><br><span class="line">	printf(&quot;a &#x3D; %d, c &#x3D; %c, str &#x3D; %s&quot;, a, c, str);</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li>实用输出格式<ul>
-<li>%md可以使不足m位的int型变量以m位进行右对齐输出，高位空格补齐，变量本身超过m位时保持原样（但是此时所有变量并不是右对齐输出）；</li>
-<li>%0md规则和%md相同，唯一的不同点在于变量不足m位时用0补足而不是空格；</li>
-<li>%.mf让浮点数保留m位小数输出，此处保留的规则是四舍六入五成双，如果四舍五入需要使用round函数；</li>
-</ul>
-</li>
-</ul>
-<h3 id="使用getchar和putchar输入输出字符"><a href="#使用getchar和putchar输入输出字符" class="headerlink" title="使用getchar和putchar输入输出字符"></a>使用getchar和putchar输入输出字符</h3><ul>
-<li>getchar()输入单个字符，putchar()输出单个字符，getchar()可以接收输入但不把它存储在常量中，getchar()可以识别并存储换行符；</li>
-</ul>
-<h3 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h3><ul>
-<li>/**/可以注释若干连续行的内容</li>
-<li>//注释在该符号之后的内容，效果仅限该行</li>
-</ul>
-<h3 id="typedef"><a href="#typedef" class="headerlink" title="typedef"></a>typedef</h3><ul>
-<li>给复杂的数据类型起别名来代替原来的写法<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">typedef long long LL; &#x2F;&#x2F; 之后可以用LL代替long long</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<h3 id="常用math函数"><a href="#常用math函数" class="headerlink" title="常用math函数"></a>常用math函数</h3><ul>
-<li>使用时需要在程序开头加上math.h文件</li>
-<li>fabs(double x)用于对double型变量取绝对值，实际使用时不需要写double，下同</li>
-<li>floor(double x)和ceil(double x)分别对double型变量向上取整和向下取整，返回类型为double</li>
-<li>pow(double r, double p)用于返回r^p</li>
-<li>sqrt(double x)用于返回double类型的算术平方根</li>
-<li>log(double x)用于返回double类型变量的以自然对数为底的对数<ul>
-<li>c语言中没有对任意底数求对数的函数，必须使用换底公式计算，即log<sub>a</sub>b = log<sub>e</sub>b / log<sub>e</sub>a</li>
-</ul>
-</li>
-<li>sin(double x), cos(double x), tan(double x), asin(double x), acos(double x), atan(double x)<ul>
-<li>参数要求是弧度制，即sin45° = sin(pi * 45 / 180)，此处pi定义为acos(-1.0)</li>
-</ul>
-</li>
-<li>round(double x)，用于把double型变量四舍五入为整数，返回类型也是double型变量，需要时要进行取整</li>
-</ul>
-<h2 id="2-3-选择结构"><a href="#2-3-选择结构" class="headerlink" title="2.3 选择结构"></a>2.3 选择结构</h2><h3 id="if语句"><a href="#if语句" class="headerlink" title="if语句"></a>if语句</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 格式，else可不写，大括号中只有一个语句时可以去掉大括号</span><br><span class="line">if(条件A) &#123;</span><br><span class="line">	...</span><br><span class="line">&#125; else if(条件B) &#123;</span><br><span class="line">	...</span><br><span class="line">&#125; else &#123;</span><br><span class="line">	...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>表达式是!=0时可以省略，直接写if(n)</li>
-<li>表达式是==0时可以省略==0，在表达式前添加运算符!</li>
-</ul>
-<h3 id="switch语句"><a href="#switch语句" class="headerlink" title="switch语句"></a>switch语句</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">switch(表达式)&#123;</span><br><span class="line">	case 常量表达式1:</span><br><span class="line">		...</span><br><span class="line">		break;</span><br><span class="line">	case 常量表达式n:</span><br><span class="line">		...</span><br><span class="line">		break;</span><br><span class="line">	default:</span><br><span class="line">		...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>如果删掉break，程序会从第一个匹配的case开始执行语句直到下面所有语句都执行完毕。</li>
-</ul>
-<h2 id="2-4-循环结构"><a href="#2-4-循环结构" class="headerlink" title="2.4 循环结构"></a>2.4 循环结构</h2><h3 id="while语句"><a href="#while语句" class="headerlink" title="while语句"></a>while语句</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 如果不加大括号，while循环只作用于while后的第一个分号前</span><br><span class="line">while(条件A)&#123;</span><br><span class="line">	...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="do-while语句"><a href="#do-while语句" class="headerlink" title="do while语句"></a>do while语句</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">do&#123;</span><br><span class="line">	...</span><br><span class="line">&#125;while(条件A);</span><br></pre></td></tr></table></figure>
-<ul>
-<li>do while的循环条件和while大部分情况下是一样的；</li>
-</ul>
-<h3 id="for语句"><a href="#for语句" class="headerlink" title="for语句"></a>for语句</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 先执行A，若B成立则执行省略号内容否则退出循环，省略号内容执行完毕后执行C，再判断B，依此循环。</span><br><span class="line">&#x2F;&#x2F; for语句下只有一句时可以不加大括号</span><br><span class="line">for(表达式A; 表达式B; 表达式C)&#123;</span><br><span class="line">	...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>c语言不允许for语句的表达式1定义变量，例如int i的写法是不允许的，但在c++中可以</li>
-</ul>
-<h3 id="break和continue语句"><a href="#break和continue语句" class="headerlink" title="break和continue语句"></a>break和continue语句</h3><ul>
-<li>break直接退出循环，continue结束循环当前轮回进入下一个轮回。</li>
-</ul>
-<h2 id="2-5-数组"><a href="#2-5-数组" class="headerlink" title="2.5 数组"></a>2.5 数组</h2><h3 id="2-5-1-一维数组"><a href="#2-5-1-一维数组" class="headerlink" title="2.5.1 一维数组"></a>2.5.1 一维数组</h3><ul>
-<li>数组是从某个地址开始连续若干个位置形成的元素集合</li>
-<li>数组大小必须是整数常量，不可是变量<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">int a[10] &#x3D; &#123;5, 3, 2, 6, 8, 4&#125;;</span><br><span class="line">&#x2F;&#x2F; 如果想给整个数组都赋初值0，可以采取以下两种方式</span><br><span class="line">int a[10] &#x3D; &#123;0&#125;;</span><br><span class="line">int a[10] &#x3D; &#123;&#125;;</span><br></pre></td></tr></table></figure></li>
-<li>数组中后一位的结果由前一位或若干位计算得来的做法称为递推，递推分为顺推和逆推</li>
-</ul>
-<h3 id="2-5-2-冒泡排序"><a href="#2-5-2-冒泡排序" class="headerlink" title="2.5.2 冒泡排序"></a>2.5.2 冒泡排序</h3><ul>
-<li>每次通过交换把当前剩余元素的最大值移动到一端</li>
-<li>整个过程执行n-1趟，每趟从左到右依次比较相邻的两个数</li>
-</ul>
-<h3 id="2-5-3-二维数组"><a href="#2-5-3-二维数组" class="headerlink" title="2.5.3 二维数组"></a>2.5.3 二维数组</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">int a[5][6] &#x3D; &#123;&#123;3, 1, 2&#125;, &#123;8, 4&#125;, &#123;&#125;, &#123;1, 2, 3, 4, 5&#125;&#125;;</span><br><span class="line">&#x2F;&#x2F; 输出结果为</span><br><span class="line">3 1 2 0 0 0</span><br><span class="line">8 4 0 0 0 0</span><br><span class="line">0 0 0 0 0 0</span><br><span class="line">1 2 3 4 5 0</span><br><span class="line">0 0 0 0 0 0</span><br></pre></td></tr></table></figure>
-<ul>
-<li>如果数组大小较大（10<sup>6</sup>)，则需要把它定义在主函数外（定义后主函数中直接使用即可无需声明）否则会使程序异常退出，因为函数内部申请的局部变量来自系统栈，允许申请的空间较小</li>
-<li>多维数组使用方法和二维数组基本无二</li>
-</ul>
-<h3 id="2-5-4-memset——对数组中每个元素赋相同的值"><a href="#2-5-4-memset——对数组中每个元素赋相同的值" class="headerlink" title="2.5.4 memset——对数组中每个元素赋相同的值"></a>2.5.4 memset——对数组中每个元素赋相同的值</h3><ul>
-<li>使用memset需要在程序开头添加string.h头文件</li>
-<li>只建议初学者使用memset赋0或-1，因为memset按字节赋值，对每个字节赋相同的值，0的二进制补码为全0，-1的二进制补码为全1，不易弄错，其他数字的赋值建议使用fill函数，虽然它比memset要慢<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;格式</span><br><span class="line">memset(数组名, 值, sizeof(数组名));</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<h3 id="2-5-5-字符数组"><a href="#2-5-5-字符数组" class="headerlink" title="2.5.5 字符数组"></a>2.5.5 字符数组</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 字符数组的初始化</span><br><span class="line">char str[15] &#x3D; &#123;&#39;G&#39;, &#39;O&#39;, &#39;O&#39;, &#39;D&#39;, &#39; &#39;, &#39;S&#39;, &#39;T&#39;, &#39;O&#39;, &#39;R&#39;, &#39;Y&#39;, &#39;!&#39;&#125;;</span><br><span class="line">&#x2F;&#x2F; 也可以通过直接赋值字符串来初始化，但这样赋值仅限于初始化，程序其他位置不允许这样</span><br><span class="line">char str[15] &#x3D; &quot;Good Story!&quot;;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>char数组维度是二维时可以当做字符串数组，即若干字符串，字符数组的输入可以使用scanf，getchar，gets；输出可以使用printf，putchar，puts</li>
-<li>getchar可以用于接收换行符</li>
-<li>gets用于输入一行字符串，gets识别换行符\n作为输入结束，puts用于输出一行字符串，并紧跟一个换行</li>
-<li>scanf和gets在一维字符数组和二维字符数组的第二维末尾都自动添加一个空字符\0，表示存放的字符串的结尾，puts和printf就是通过识别\0作为字符串的结尾来输出的<ul>
-<li>\0的ASCII码为0，即空字符NULL，所以开字符数组时长度至少比实际字符串长度多1</li>
-<li>int型数组末尾不需要加\0，只有char数组需要</li>
-<li>空格的ASCII码是32，和\0不是一个东西，不要混淆</li>
-<li>如果不是使用scanf的%s格式或者gets函数输入字符串（比如getchar），一定要手动在输入的每个字符串后加”\0”</li>
-</ul>
-</li>
-</ul>
-<h3 id="2-5-6-string-h头文件"><a href="#2-5-6-string-h头文件" class="headerlink" title="2.5.6 string.h头文件"></a>2.5.6 string.h头文件</h3><ul>
-<li>包含了许多用于字符数组的函数</li>
-<li>strlen()：得到字符数组第一个\0前的字符的个数，格式为strlen(字符数组)</li>
-<li>strcmp(字符数组a, 字符数组b)：按字符串在字典中的顺序返回两个字符串大小比较结果，a&lt;b返回一个不一定是-1的负整数，相等返回0，a&gt;b返回一个不一定是+1的正整数</li>
-<li>strcpy(字符数组a, 字符数组b)：把b复制给a，这里的复制包括了结束符\0</li>
-<li>strcat(字符数组a, 字符数组b)：把b接到a后面</li>
-</ul>
-<h3 id="2-5-7-sscanf与spintf"><a href="#2-5-7-sscanf与spintf" class="headerlink" title="2.5.7 sscanf与spintf"></a>2.5.7 sscanf与spintf</h3><ul>
-<li>都在stdio.h文件下</li>
-<li>sscanf还支持正则表达式，配合正则表达式进行字符串处理，很多字符串题目会迎刃而解<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 把字符数组str中的内容以%d的格式写到n中</span><br><span class="line">sscanf(str, &quot;%d&quot;, &amp;n)</span><br><span class="line">int n;</span><br><span class="line">double db;</span><br><span class="line">char str[100] &#x3D; &quot;2048:3.14,hello&quot;, str2[100];</span><br><span class="line">sscanf(str, &quot;%d:%lf,%s&quot;, &amp;n, &amp;db, str2);</span><br><span class="line">&#x2F;&#x2F; 把n以%d的格式写到字符数组str中</span><br><span class="line">sprintf(str, &quot;%d&quot;, n)</span><br><span class="line">int n &#x3D; 12;</span><br><span class="line">double db &#x3D; 3.1415;</span><br><span class="line">char str[100], str2[100] &#x3D; &quot;good&quot;;</span><br><span class="line">sprintf(str, &quot;%d:%lf,%s&quot;, n, db, str2);</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<h2 id="2-6-函数"><a href="#2-6-函数" class="headerlink" title="2.6 函数"></a>2.6 函数</h2><h3 id="2-6-1-函数的定义"><a href="#2-6-1-函数的定义" class="headerlink" title="2.6.1 函数的定义"></a>2.6.1 函数的定义</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">返回类型 函数名称(参数类型 参数)&#123;</span><br><span class="line">	函数主体</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>void可以不写return</li>
-<li>定义在所有函数之前的变量是全局变量，在之后所有程序段内都有效</li>
-<li>局部变量定义在函数内部，只在函数内部生效，函数定义的小括号内的参数为形参，实际调用函数时小括号内的参数称为实参</li>
-<li>对计算机来说，main函数返回0的意义在于告知系统程序正常终止</li>
-</ul>
-<h3 id="2-6-3-以数组作为函数参数"><a href="#2-6-3-以数组作为函数参数" class="headerlink" title="2.6.3 以数组作为函数参数"></a>2.6.3 以数组作为函数参数</h3><ul>
-<li>函数参数也可以是数组，数组做形参时，参数中数组的第一维不需要写长度，如果是二维数组，则第二维需要写长度；实际调用时，也只需要填写数组名</li>
-<li>与普通局部变量不同，数组做参数时，在函数中对数组元素的修改等同于对原数组元素的修改</li>
-<li>数组不允许作为返回类型出现，如果想返回数组，只能把想要返回的数组作为参数传入函数</li>
-</ul>
-
+<li>c语言中的.h和c++中更推荐的写法#include &lt;cstdio&gt;以及#include &lt;cstring&gt;等等价
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/11/18/c++%E8%AF%AD%E6%B3%95%E4%B8%8E%E7%AE%97%E6%B3%95-2/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
