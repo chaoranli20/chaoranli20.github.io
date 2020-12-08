@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="faster rcnnabstract sppnet和fast rcnn暴露了区域提议的计算是瓶颈 贡献：提出区域提议网络RPN，使用attention机制融合RPN和检测网络fastrcnn，使它们共享特征，得到了近乎cost-free的区域提议">
+<meta property="og:type" content="article">
+<meta property="og:title" content="目标检测005 fasterrcnn">
+<meta property="og:url" content="http://example.com/2020/12/08/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B_fasterrcnn/index.html">
+<meta property="og:site_name">
+<meta property="og:description" content="faster rcnnabstract sppnet和fast rcnn暴露了区域提议的计算是瓶颈 贡献：提出区域提议网络RPN，使用attention机制融合RPN和检测网络fastrcnn，使它们共享特征，得到了近乎cost-free的区域提议">
+<meta property="og:locale">
+<meta property="og:image" content="http://example.com/images/009_fasterrcnn.PNG">
+<meta property="og:image" content="http://example.com/images/006_fasterrcnn.PNG">
+<meta property="og:image" content="http://example.com/images/007_fasterrcnn.PNG">
+<meta property="og:image" content="http://example.com/images/008_fasterrcnn.PNG">
+<meta property="article:published_time" content="2020-12-08T01:43:13.000Z">
+<meta property="article:modified_time" content="2020-12-08T01:45:08.132Z">
+<meta property="article:author" content="superran">
+<meta property="article:tag" content="目标检测">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/009_fasterrcnn.PNG">
+
+<link rel="canonical" href="http://example.com/2020/12/08/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B_fasterrcnn/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
+  };
+</script>
+
+  <title>目标检测005 fasterrcnn | </title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title"></h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-本站首页">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>本站首页</a>
+
+  </li>
+        <li class="menu-item menu-item-关于我">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于我</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/12/08/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B_fasterrcnn/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="superran">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          目标检测005 fasterrcnn
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-12-08 09:43:13 / 修改时间：09:45:08" itemprop="dateCreated datePublished" datetime="2020-12-08T09:43:13+08:00">2020-12-08</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/" itemprop="url" rel="index"><span itemprop="name">图像处理</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="faster-rcnn"><a href="#faster-rcnn" class="headerlink" title="faster rcnn"></a>faster rcnn</h1><h2 id="abstract"><a href="#abstract" class="headerlink" title="abstract"></a>abstract</h2><ul>
+<li>sppnet和fast rcnn暴露了区域提议的计算是瓶颈</li>
+<li>贡献：提出区域提议网络RPN，使用attention机制融合RPN和检测网络fastrcnn，使它们共享特征，得到了近乎cost-free的区域提议<a id="more"></a>
+<h2 id="introduction"><a href="#introduction" class="headerlink" title="introduction"></a>introduction</h2></li>
+<li>selective search，贪婪地根据设计好的低维特征聚合超像素</li>
+</ul>
+<h2 id="related-work"><a href="#related-work" class="headerlink" title="related work"></a>related work</h2><ul>
+<li>广泛使用的目标检测方法包括基于超像素聚合的方法和基于滑动窗口的方法</li>
+</ul>
+<h2 id="faster-rcnn-1"><a href="#faster-rcnn-1" class="headerlink" title="faster rcnn"></a>faster rcnn</h2><ul>
+<li>由两部分组成，第一部分是产生区域提议的全卷积网络，第二部分是使用区域提议的fast rcnn检测器</li>
+<li>RPN可以理解为attention机制，告诉fast rcnn应该看哪里<br><img src="/images/009_fasterrcnn.PNG" alt="fasterrcnn"></li>
+</ul>
+<h3 id="3-1-region-proposal-networks-RPN"><a href="#3-1-region-proposal-networks-RPN" class="headerlink" title="3.1 region proposal networks(RPN)"></a>3.1 region proposal networks(RPN)</h3><ul>
+<li>以一张任意size的图像作为输入，输出一组矩形目标提议，每一个提议都有一个objectness score，这个过程建模为一个全卷积网络(fcn)</li>
+<li>由于想和fast rcnn目标检测网络共享计算，假设fast rcnn和fcn共享一组卷积层<br><img src="/images/006_fasterrcnn.PNG" alt="RPN"></li>
+<li>如图所示，在共享的卷积网络的最后一层输出的卷积特征图上slide一个小网络，这个小网络把卷积特征图上的一个n*n的窗口作为输入，本文中取n=3。每个slide窗口被映射为一个特征。这个特征进入两个并列的全连接层(一个box回归reg层和一个box分类cls层)，这个架构实施为一个n*n的卷积层和两个并列的1*1的卷积层</li>
+</ul>
+<h4 id="3-1-1-anchors"><a href="#3-1-1-anchors" class="headerlink" title="3.1.1 anchors"></a>3.1.1 anchors</h4><ul>
+<li>在每个sliding-window位置，同时预测多个区域提议，每个位置最大的提议数设置为k。reg层有4k个输出，编码了k个box的坐标；cls层有2k个分数，表明了每个提议是目标或者不是目标的可能性(本文中把cls层实施为二类softmax层)，这k个参考boxes称为anchors</li>
+<li>anchor的中心在sliding window的中心，由scale和长宽比确定，本文默认使用3个scales和3个长宽比，为每个sliding window产生9个anchor。对一个大小W*H的卷积特征图，共有WHk个anchor产生</li>
+</ul>
+<h5 id="translation-invariant-anchors"><a href="#translation-invariant-anchors" class="headerlink" title="translation-invariant anchors"></a>translation-invariant anchors</h5><ul>
+<li>本文方法由于使用FCN而具有平移不变性</li>
+<li>这个平移不变性属性也减少了参数量，本文的输出层有512*(4+2)*9(对VGG16)个参数</li>
+</ul>
+<h5 id="multi-scale-anchors-as-regression-references"><a href="#multi-scale-anchors-as-regression-references" class="headerlink" title="multi-scale anchors as regression references"></a>multi-scale anchors as regression references</h5><p><img src="/images/007_fasterrcnn.PNG" alt="multi-scale predictions"></p>
+<ul>
+<li>用于多尺度预测的两种方法<ul>
+<li>基于图像/特征金字塔：图像被转换成多个尺度，特征图在这些尺度上分别计算，这种方法耗时</li>
+<li>在特征图上使用不同尺度的滑动窗口，可以看做pyramid of filters，这种方法常和第一种联合使用</li>
+</ul>
+</li>
+<li>本文用于尺度的方法基于anchor，anchor box有不同尺度和长宽比。原图像和特征图只有一种尺度，filter也只有一种尺度。本文中学习了k个bounding-box回归器，k个回归器间参数不共享</li>
+</ul>
+<h4 id="3-1-2-损失函数"><a href="#3-1-2-损失函数" class="headerlink" title="3.1.2 损失函数"></a>3.1.2 损失函数</h4><ul>
+<li>训练RPN时，为每个anchor设置一个二分类标签(表示是目标或者不是目标)</li>
+<li>标注为positive的anchor应满足：这个/这些anchor和一个ground-truth box有最高的交并比，或者和ground-truth box的交并比大于0.7</li>
+<li>标注为negative的non-positive anchor和所有的ground-truth box的交并比小于0.3<br><img src="/images/008_fasterrcnn.PNG" alt="损失函数"></li>
+</ul>
+<h4 id="3-1-3-training-RPNS"><a href="#3-1-3-training-RPNS" class="headerlink" title="3.1.3 training RPNS"></a>3.1.3 training RPNS</h4><ul>
+<li>每个mini-batch包括一张包含若干anchor的图像：在一张图像上随机采样256个anchor来计算一个mini-batch的loss function，其中positive anchor和negetive anchor的比例是1:1</li>
+</ul>
+<h3 id="3-2-RPN和Fast-RCNN共享特征"><a href="#3-2-RPN和Fast-RCNN共享特征" class="headerlink" title="3.2 RPN和Fast RCNN共享特征"></a>3.2 RPN和Fast RCNN共享特征</h3><ul>
+<li>训练共享特征的网络的三种方式<ul>
+<li>alternating training：本文中使用这个方法。首先训练RPN，然后使用得到的区域训练fast rcnn。被fast rcnn调整过的网络随后被用来初始化RPN，迭代进行这个过程</li>
+<li>近似联合训练(approximate joint training)：RPN和fast-rcnn训练时融合到一个网络中，这种方法忽视了提议框坐标的导数，所以是近似的</li>
+<li>非近似联合训练：不忽视提议框坐标的导数，解决方法是使用ROI warping层(在文中未介绍)</li>
+</ul>
+</li>
+</ul>
+<h5 id="四步交替训练"><a href="#四步交替训练" class="headerlink" title="四步交替训练"></a>四步交替训练</h5><ul>
+<li>四步交替优化学习共享特征</li>
+<li>第一步：训练RPN，RPN网络用ImageNet预训练的模型初始化，然后对区域提议任务进行端到端的微调</li>
+<li>第二步：使用第一步得到的提议框训练一个fastrcnn，这个网络也通过ImageNet预训练的模型初始化，此时两个网络还没有共享卷积层</li>
+<li>第三步：使用fastrcnn初始化RPN训练，固定共享卷积层，只微调RPN独有的层</li>
+<li>第四步：保持共享卷积层固定，微调fastrcnn独有的层</li>
+</ul>
+<h3 id="3-3-实施细节"><a href="#3-3-实施细节" class="headerlink" title="3.3 实施细节"></a>3.3 实施细节</h3><ul>
+<li>在训练时忽视跨图像边界的anchor，测试时不忽略</li>
+<li>RPN的提议彼此覆盖多，所以本文基于cls score使用了非极大值抑制NMS，NMS后使用top-N ranked提议区域用于检测</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/" rel="tag"># 目标检测</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/12/05/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B_RCNN_2014_CVPR_paper/" rel="prev" title="目标检测002 rcnn(未完)">
+      <i class="fa fa-chevron-left"></i> 目标检测002 rcnn(未完)
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#faster-rcnn"><span class="nav-number">1.</span> <span class="nav-text">faster rcnn</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#abstract"><span class="nav-number">1.1.</span> <span class="nav-text">abstract</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#introduction"><span class="nav-number">1.2.</span> <span class="nav-text">introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#related-work"><span class="nav-number">1.3.</span> <span class="nav-text">related work</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#faster-rcnn-1"><span class="nav-number">1.4.</span> <span class="nav-text">faster rcnn</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-region-proposal-networks-RPN"><span class="nav-number">1.4.1.</span> <span class="nav-text">3.1 region proposal networks(RPN)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-1-anchors"><span class="nav-number">1.4.1.1.</span> <span class="nav-text">3.1.1 anchors</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#translation-invariant-anchors"><span class="nav-number">1.4.1.1.1.</span> <span class="nav-text">translation-invariant anchors</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#multi-scale-anchors-as-regression-references"><span class="nav-number">1.4.1.1.2.</span> <span class="nav-text">multi-scale anchors as regression references</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-2-%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0"><span class="nav-number">1.4.1.2.</span> <span class="nav-text">3.1.2 损失函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-3-training-RPNS"><span class="nav-number">1.4.1.3.</span> <span class="nav-text">3.1.3 training RPNS</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-RPN%E5%92%8CFast-RCNN%E5%85%B1%E4%BA%AB%E7%89%B9%E5%BE%81"><span class="nav-number">1.4.2.</span> <span class="nav-text">3.2 RPN和Fast RCNN共享特征</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%9B%9B%E6%AD%A5%E4%BA%A4%E6%9B%BF%E8%AE%AD%E7%BB%83"><span class="nav-number">1.4.2.0.1.</span> <span class="nav-text">四步交替训练</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-%E5%AE%9E%E6%96%BD%E7%BB%86%E8%8A%82"><span class="nav-number">1.4.3.</span> <span class="nav-text">3.3 实施细节</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">superran</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">8</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/chaoranli20" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;chaoranli20" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fab fa-angellist"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">superran</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
